@@ -1,0 +1,11 @@
+{
+"provisioners": [
+  {
+    "type": "shell",
+    "inline": [
+      "echo 'project currently in development'"
+    ],
+    "order": "99"
+  }
+]
+}
