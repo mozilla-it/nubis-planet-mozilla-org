@@ -3,6 +3,15 @@
 LOCKFILE=/tmp/locks/planet.lock
 PLANETS="planet education mozillaonline bugzilla firefox firefoxmobile webmaker firefox-ux webmademovies planet-de universalsubtitles interns research mozillaopennews l10n ateam projects thunderbird firefox-os releng participation taskcluster mozreview"
 
+# Ensure that Python 2.7 is available (only tested with 2.6 and 2.7)
+python --version 2>&1 | grep "2\.7" 2>&1>/dev/null
+PYTHON_VER_CHECK=$?
+
+if [ $PYTHON_VER_CHECK -ne 0 ]; then
+  # Python is not available
+  exit 1
+fi
+
 if [ ! -d /tmp/locks ]
 then
   mkdir /tmp/locks
