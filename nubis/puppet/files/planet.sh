@@ -39,7 +39,7 @@ cd /opt/planet/build/planet-content/branches
 
 for planet in $PLANETS; do
   cd $planet
-  /usr/bin/python2.6 ../../../planet-source/trunk/planet.py config.ini
+  /usr/bin/python ../../../planet-source/trunk/planet.py config.ini
   cd ..
 done
 

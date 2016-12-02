@@ -28,7 +28,7 @@ class {
         expires_default => 'access plus 30 minutes';
 }
 
-apache::vhost { 'tlscanary':
+apache::vhost { 'planet':
     port              => 80,
     default_vhost     => true,
     docroot           => '/var/www/html',

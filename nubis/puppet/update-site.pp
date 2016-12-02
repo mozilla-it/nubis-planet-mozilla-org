@@ -5,6 +5,14 @@ file { '/opt/admin-scripts':
   mode   => '0755',
 }
 
+file { ['/opt/planet', '/opt/planet/build']:
+  ensure  => 'directory',
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  require => File['/opt/admin-scripts'],
+}
+
 file { '/opt/admin-scripts/update-site.sh':
   ensure  => file,
   owner   => root,
@@ -14,7 +22,7 @@ file { '/opt/admin-scripts/update-site.sh':
   require => File['/opt/admin-scripts'],
 }
 
-file { '/opt/admin/scripts/planet.sh':
+file { '/opt/admin-scripts/planet.sh':
   ensure  => file,
   owner   => root,
   group   => root,
