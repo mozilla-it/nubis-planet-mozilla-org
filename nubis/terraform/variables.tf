@@ -14,14 +14,8 @@ variable "service_name" {
   default = "planet"
 }
 
-variable "ami" {
-  default ="ami-53ff5633"
-}
+variable "ami" {}
 
-variable "ssh_key_file" {
-  default = ""
-}
+variable "ssh_key_file" {}
 
-variable "ssh_key_name" {
-  default = ""
-}
+variable "ssh_key_name" {}
