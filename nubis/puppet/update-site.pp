@@ -31,6 +31,37 @@ file { '/opt/admin-scripts/planet.sh':
   require => File['/opt/admin-scripts'],
 }
 
+file { '/data/':
+  ensure  => 'directory',
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+}
+
+file { '/data/static/':
+  ensure  => 'directory',
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  require => File['/data/'],
+}
+
+file { '/data/static/src/':
+  ensure  => 'directory',
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  require => File['/data/static/'],
+}
+
+file { '/data/static/src/planet.mozilla.org/':
+  ensure  => 'directory',
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  require => File['/data/static/src/'],
+}
+
 file { "/etc/nubis.d/${project_name}":
   ensure  => file,
   owner   => root,

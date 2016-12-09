@@ -10,6 +10,12 @@
   {
     "type": "shell",
     "inline": [
+      "sudo mkdir /data/static/src/planet.mozilla.org/ateam"
+    ]
+  },
+  {
+    "type": "shell",
+    "inline": [
       "cd /opt/planet/build/planet-source/trunk/themes",
       "sudo ln -s ../../../planet-content/branches/ateam/theme moz_ateam",
       "sudo ln -s ../../../planet-content/branches/bugzilla/theme moz_bugzilla",
