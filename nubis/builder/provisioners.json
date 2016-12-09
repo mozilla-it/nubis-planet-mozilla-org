@@ -10,8 +10,9 @@
   {
     "type": "shell",
     "inline": [
-      "sudo mkdir /data/static/src/planet.mozilla.org/ateam"
-    ]
+      "sudo mkdir -p /data/static/src/planet.mozilla.org/ateam"
+    ],
+    "order": "97"
   },
   {
     "type": "shell",
