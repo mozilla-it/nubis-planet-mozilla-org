@@ -24,8 +24,6 @@ class {
     'apache::mod::status':;
     'apache::mod::remoteip':
         proxy_ips => [ '127.0.0.1', '10.0.0.0/8' ];
-    'apache::mod::expires':
-        expires_default => 'access plus 30 minutes';
 }
 
 apache::vhost { 'planet':
