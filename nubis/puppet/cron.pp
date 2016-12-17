@@ -1,5 +1,5 @@
 cron { 'update-site.sh':
-  command => 'nubis-cron update-site /opt/admin-scripts/update-site.sh',
+  command => '/opt/admin-scripts/planet.sh',
   user    => 'root',
-  minute  => [ fqdn_rand(30), ( fqdn_rand(30) + 30 ) % 60 ],
+  minute  => [6, 16]
 }
