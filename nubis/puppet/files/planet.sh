@@ -1,16 +1,10 @@
 #!/bin/bash
 
 LOCKFILE=/tmp/locks/planet.lock
-PLANETS="planet education mozillaonline bugzilla firefox firefoxmobile webmaker firefox-ux webmademovies planet-de universalsubtitles interns research mozillaopennews l10n ateam projects thunderbird firefox-os releng participation taskcluster mozreview"
-
-# Ensure that Python 2.7 is available (only tested with 2.6 and 2.7)
-python --version 2>&1 | grep "2\.7" 2>&1>/dev/null
-PYTHON_VER_CHECK=$?
-
-if [ $PYTHON_VER_CHECK -ne 0 ]; then
-  # Python is not available
-  exit 1
-fi
+PLANETS="education mozillaonline bugzilla firefox firefoxmobile webmaker
+firefox-ux webmademovies planet-de universalsubtitles interns research
+mozillaopennews l10n ateam projects thunderbird firefox-os releng participation
+taskcluster mozreview planet"
 
 if [ ! -d /tmp/locks ]
 then
@@ -32,15 +26,29 @@ fi
 # Add PID to lockfile
 echo $$ > $LOCKFILE
 
-# Update repositories
-cd /opt/planet/build/planet-source && git pull
-cd /opt/planet/build/planet-content && git pull
-cd /opt/planet/build/planet-content/branches
+if [ ! -d /data/static/build/planet-source ]; then
+  CONTENT_DEST=/data/static/build/planet-source
+  git clone https://github.com/mozilla/planet-source.git $CONTENT_DEST
+fi
 
+if [ ! -d /data/static/build/planet-content ]; then
+  CONTENT_DEST=/data/static/build/planet-content
+  git clone https://github.com/mozilla/planet-content.git $CONTENT_DEST
+fi
+
+# Update repositories
+cd /data/static/build/planet-source && git pull
+cd /data/static/build/planet-content && git pull
+
+# Generate content
+cd /data/static/build/planet-content
+cd branches
 for planet in $PLANETS; do
-  cd $planet
-  /usr/bin/python ../../../planet-source/trunk/planet.py config.ini
-  cd ..
+    cd $planet
+    python ../../../planet-source/trunk/planet.py config.ini
+    cd ..
 done
+
+cp -rf /data/static/src/planet.mozilla.org/* /var/www/html
 
 rm -f $LOCKFILE
