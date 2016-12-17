@@ -1,7 +1,7 @@
 {
   "variables": {
     "builders": [
-      "amazon-ebs-ubuntu"
+      "amazon-ebs-centos"
     ],
     "project_description": "The Nubis deployment repository for Mozilla's planet.mozilla.org",
     "project_name": "planet",
