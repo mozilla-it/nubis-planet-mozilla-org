@@ -3,44 +3,16 @@
   {
     "type": "shell",
     "inline": [
-      "sudo /opt/admin-scripts/update-site.sh"
+      "sudo mkdir -p /data/static/src",
+      "sudo mkdir -p /data/static/build",
+      "sudo ln -s ../planet-source/trunk/ /data/static/build/planet-content/trunk"
     ],
-    "order": "98"
+    "order": "1"
   },
   {
     "type": "shell",
     "inline": [
-      "sudo mkdir -p /data/static/src/planet.mozilla.org/ateam"
-    ],
-    "order": "97"
-  },
-  {
-    "type": "shell",
-    "inline": [
-      "cd /opt/planet/build/planet-source/trunk/themes",
-      "sudo ln -s ../../../planet-content/branches/ateam/theme moz_ateam",
-      "sudo ln -s ../../../planet-content/branches/bugzilla/theme moz_bugzilla",
-      "sudo ln -s ../../../planet-content/branches/education/theme moz_education",
-      "sudo ln -s ../../../planet-content/branches/firefox/theme moz_firefox",
-      "sudo ln -s ../../../planet-content/branches/firefoxmobile/theme moz_firefoxmobile",
-      "sudo ln -s ../../../planet-content/branches/firefox-os/theme moz_firefox-os",
-      "sudo ln -s ../../../planet-content/branches/firefox-ux/theme moz_firefox-ux",
-      "sudo ln -s ../../../planet-content/branches/interns/theme moz_interns",
-      "sudo ln -s ../../../planet-content/branches/l10n/theme moz_l10n",
-      "sudo ln -s ../../../planet-content/branches/mozillaonline/theme moz_mozillaonline",
-      "sudo ln -s ../../../planet-content/branches/mozillaopennews/theme moz_mozillaopennews",
-      "sudo ln -s ../../../planet-content/branches/mozreview/theme moz_mozreview",
-      "sudo ln -s ../../../planet-content/branches/participation/theme moz_participation",
-      "sudo ln -s ../../../planet-content/branches/planet/theme moz_planet",
-      "sudo ln -s ../../../planet-content/branches/planet-de/theme moz_planet_de",
-      "sudo ln -s ../../../planet-content/branches/projects/theme moz_projects",
-      "sudo ln -s ../../../planet-content/branches/releng/theme moz_releng",
-      "sudo ln -s ../../../planet-content/branches/research/theme moz_research",
-      "sudo ln -s ../../../planet-content/branches/taskcluster/theme moz_taskcluster",
-      "sudo ln -s ../../../planet-content/branches/thunderbird/theme moz_thunderbird",
-      "sudo ln -s ../../../planet-content/branches/universalsubtitles/theme moz_univeralsubtitles",
-      "sudo ln -s ../../../planet-content/branches/webmademovies/theme moz_webmademovies",
-      "sudo ln -s ../../../planet-content/branches/webmaker/theme moz_webmaker"
+      "sudo /opt/admin-scripts/planet.sh"
     ],
     "order": "99"
   }
