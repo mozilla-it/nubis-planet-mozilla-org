@@ -15,6 +15,13 @@
     "inline": [
       "sudo /opt/admin-scripts/planet.sh"
     ],
+    "order": "98"
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "sudo /opt/admin-scripts/planet.sh"
+    ],
     "order": "99"
   }
 ]
