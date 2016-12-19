@@ -26,14 +26,14 @@ fi
 # Add PID to lockfile
 echo $$ > $LOCKFILE
 
+cd /data/static/build
+
 if [ ! -d "/data/static/build/planet-source/.git" ]; then
-  CONTENT_DEST=/data/static/build/planet-source
-  git clone https://github.com/mozilla/planet-source.git $CONTENT_DEST
+  git clone https://github.com/mozilla/planet-source.git ./planet-source
 fi
 
 if [ ! -d "/data/static/build/planet-content/.git" ]; then
-  CONTENT_DEST=/data/static/build/planet-content
-  git clone https://github.com/mozilla/planet-content.git $CONTENT_DEST
+  git clone https://github.com/mozilla/planet-content.git ./planet-content
 fi
 
 # Update repositories
