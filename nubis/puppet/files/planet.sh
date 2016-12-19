@@ -38,7 +38,9 @@ fi
 
 # Update repositories
 cd /data/static/build/planet-source && git pull
+rm /data/static/build/planet-content/trunk
 cd /data/static/build/planet-content && git pull
+ln -s ../planet-source/trunk/ /data/static/build/planet-content/trunk
 
 # Generate content
 cd /data/static/build/planet-content

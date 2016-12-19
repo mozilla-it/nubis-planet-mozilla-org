@@ -6,8 +6,7 @@
       "sudo mkdir -p /data/static/src",
       "sudo mkdir -p /data/static/build",
       "sudo mkdir -p /data/static/build/planet-content",
-      "sudo mkdir -p /data/static/build/planet-source",
-      "sudo ln -s ../planet-source/trunk/ /data/static/build/planet-content/trunk"
+      "sudo mkdir -p /data/static/build/planet-source"
     ],
     "order": "1"
   },
