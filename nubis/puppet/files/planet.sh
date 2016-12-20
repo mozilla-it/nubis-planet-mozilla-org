@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LOCKFILE=/tmp/locks/planet.lock
-PLANETS="education mozillaonline bugzilla firefox firefoxmobile webmaker
+PLANETS="planet education mozillaonline bugzilla firefox firefoxmobile webmaker
 firefox-ux webmademovies planet-de universalsubtitles interns research
 mozillaopennews l10n ateam projects thunderbird firefox-os releng participation
 taskcluster mozreview planet"
@@ -40,6 +40,8 @@ fi
 # Testing to ensure everything works. I will rewrite this after that.
 
 function add_symlinks {
+  sudo ln -s ../../../planet-content/branches/bugzilla/theme/ /data/static/build/planet-source/trunk/themes/moz_bugzilla
+  sudo ln -s ../../../planet-content/branches/planet/theme/ /data/static/build/planet-source/trunk/themes/moz_planet
   sudo ln -s ../../../planet-content/branches/ateam/theme/ /data/static/build/planet-source/trunk/themes/moz_ateam
   sudo ln -s ../../../planet-content/branches/education/theme/ /data/static/build/planet-source/trunk/themes/moz_education
   sudo ln -s ../../../planet-content/branches/firefox/theme/ /data/static/build/planet-source/trunk/themes/moz_firefox
@@ -102,7 +104,7 @@ cd /data/static/build/planet-content
 cd branches
 for planet in $PLANETS; do
     cd $planet
-    /python-build/Python-2.6.6/python ../../../planet-source/trunk/planet.py config.ini
+    python ../../../planet-source/trunk/planet.py config.ini
     cd ..
 done
 
