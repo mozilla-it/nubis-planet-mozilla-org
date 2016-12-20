@@ -1,7 +1,7 @@
 # Ensure that Python 2.7 is installed
 
 class { 'python' :
-  version    => '2.6',
+  version    => 'python26',
   pip        => 'present',
   dev        => 'absent',
   virtualenv => 'present',
