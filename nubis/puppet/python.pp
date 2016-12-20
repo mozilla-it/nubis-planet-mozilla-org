@@ -4,8 +4,3 @@ package {
   'python':
     ensure => installed
 }
-
-package {
-  'libxslt':
-    ensure => installed
-}
