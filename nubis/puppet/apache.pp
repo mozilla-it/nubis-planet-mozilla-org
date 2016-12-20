@@ -30,6 +30,7 @@ apache::vhost { 'planet':
     port              => 80,
     default_vhost     => true,
     docroot           => '/var/www/html',
+    directoryindex    => '/var/www/html/index.html',
     docroot_owner     => 'root',
     docroot_group     => 'root',
     block             => ['scm'],
