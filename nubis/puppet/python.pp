@@ -1,8 +1,11 @@
 # Ensure that Python 2.7 is installed
 
-package {
-  'python':
-    ensure => installed
+class { 'python' :
+  version    => '2.6.6',
+  pip        => 'present',
+  dev        => 'absent',
+  virtualenv => 'present',
+  gunicorn   => 'absent',
 }
 
 package {
