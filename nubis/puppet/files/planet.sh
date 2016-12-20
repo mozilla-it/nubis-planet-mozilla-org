@@ -102,7 +102,7 @@ cd /data/static/build/planet-content
 cd branches
 for planet in $PLANETS; do
     cd $planet
-    python ../../../planet-source/trunk/planet.py config.ini
+    /python-build/Python-2.6.6/python ../../../planet-source/trunk/planet.py config.ini
     cd ..
 done
 
