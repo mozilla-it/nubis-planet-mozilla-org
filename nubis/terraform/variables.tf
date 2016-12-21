@@ -1,5 +1,5 @@
 variable "account" {
-  default = "planet"
+  default = ""
 }
 
 variable "region" {

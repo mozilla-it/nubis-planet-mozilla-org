@@ -19,8 +19,8 @@ class {
         default_mods        => true,
         default_vhost       => false,
         default_confd_files => false,
-        service_enable      => true,
-        service_ensure      => true;
+        service_enable      => false,
+        service_ensure      => false;
     'apache::mod::status':;
     'apache::mod::remoteip':
         proxy_ips => [ '127.0.0.1', '10.0.0.0/8' ];
@@ -30,7 +30,6 @@ apache::vhost { 'planet':
     port              => 80,
     default_vhost     => true,
     docroot           => '/var/www/html',
-    directoryindex    => '/var/www/html/index.html',
     docroot_owner     => 'root',
     docroot_group     => 'root',
     block             => ['scm'],
