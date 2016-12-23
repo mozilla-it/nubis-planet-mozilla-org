@@ -3,18 +3,7 @@
   {
     "type": "shell",
     "inline": [
-      "sudo mkdir -p /data/static/src",
-      "sudo mkdir -p /data/static/build",
-      "sudo mkdir -p /data/static/build/planet-content",
-      "sudo mkdir -p /data/static/build/planet-source"
-    ],
-    "order": "1"
-  },
-  {
-    "type": "shell",
-    "inline": [
-      "sudo /opt/admin-scripts/planet.sh",
-      "sudo ls -al /data/static/src/planet.mozilla.org"
+      "sudo /opt/admin-scripts/planet.sh"
     ],
     "order": "99"
   }
