@@ -11,8 +11,7 @@ case $::osfamily {
   'Debian', 'Ubuntu': {
     package {
       'python':
-        ensure => '2.7.11-1',
-        name   => 'python'
+        name   => 'python2.7'
     }
   }
   default: {

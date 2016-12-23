@@ -11,7 +11,6 @@ case $::osfamily {
   'Debian', 'Ubuntu': {
     package {
       'xsltproc':
-        ensure => '1.1.28-2.1',
         name   => 'xsltproc'
     }
   }
