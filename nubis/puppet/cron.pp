@@ -1,5 +1,5 @@
-cron { 'update-site.sh':
+cron { 'planet.sh':
   command => '/opt/admin-scripts/planet.sh',
   user    => 'root',
-  minute  => [6, 16]
+  minute  => '*/5'
 }
