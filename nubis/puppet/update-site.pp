@@ -14,6 +14,24 @@ file { '/opt/admin-scripts/planet.sh':
   require => File['/opt/admin-scripts'],
 }
 
+file {'/opt/admin-scripts/symlink_add.sh':
+  ensure  => file,
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  source  => 'puppet:///nubis/files/symlink_add.sh',
+  require => File['/opt/admin-scripts'],
+}
+
+file {'/opt/admin-scripts/symlink_remove.sh':
+  ensure  => file,
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  source  => 'puppet:///nubis/files/symlink_remove.sh',
+  require => File['/opt/admin-scripts'],
+}
+
 file { '/data':
   ensure => 'directory',
   owner  => root,
