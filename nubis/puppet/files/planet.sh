@@ -13,7 +13,7 @@ fi
 
 if [ -f $LOCKFILE ]; then
   LOCKPID=`cat $LOCKFILE`
-  ps $LOCKPID > /dev/null
+  ps "$LOCKPID" > /dev/null
   if [ $? -eq 0 ]
     then
       exit 0
@@ -26,7 +26,7 @@ fi
 # Add PID to lockfile
 echo $$ > $LOCKFILE
 
-cd /data/static/build
+cd /data/static/build || exit 1
 
 # "git clone" may fail if the directory is not empty
 # Removing symlinks that may exist
@@ -44,7 +44,7 @@ fi
 cd /data/static/build/planet-source && git pull
 rm /data/static/build/planet-content/trunk
 cd /data/static/build/planet-content && git pull
-cd /data/static/build
+cd /data/static/build || exit 1
 
 # Add symlink to satisfy planet.py expectations
 ln -s /data/static/build/planet-source/trunk/ /data/static/build/planet-content/trunk
@@ -53,12 +53,13 @@ ln -s /data/static/build/planet-source/trunk/ /data/static/build/planet-content/
 /opt/admin-scripts/symlink_add.sh
 
 # Generate content
-cd /data/static/build/planet-content
-cd branches
+cd /data/static/build/planet-content || exit 1
+cd branches || exit 1
 for planet in $PLANETS; do
-    cd $planet
-    python ../../../planet-source/trunk/planet.py config.ini
-    cd ..
+    (
+      cd $planet || exit 1
+      python ../../../planet-source/trunk/planet.py config.ini
+    )
 done
 
 cp -rf /data/static/src/planet.mozilla.org/* /var/www/html
