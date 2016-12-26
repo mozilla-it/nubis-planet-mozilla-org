@@ -47,7 +47,7 @@ cd /data/static/build/planet-content && git pull
 cd /data/static/build
 
 # Add symlink to satisfy planet.py expectations
-ln -s ./planet-source/trunk/ /data/static/build/planet-content/trunk
+ln -s /data/static/build/planet-source/trunk/ /data/static/build/planet-content/trunk
 
 # Restore symlinks
 /opt/admin-scripts/symlink_add.sh
