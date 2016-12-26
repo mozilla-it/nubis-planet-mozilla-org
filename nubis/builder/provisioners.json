@@ -3,8 +3,7 @@
   {
     "type": "shell",
     "inline": [
-      "sudo /opt/admin-scripts/planet.sh",
-      "ls /data/static/src/planet.mozilla.org"
+      "sudo /opt/admin-scripts/planet.sh"
     ],
     "order": "99"
   }
