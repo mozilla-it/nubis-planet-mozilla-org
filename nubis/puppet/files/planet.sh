@@ -12,7 +12,7 @@ then
 fi
 
 if [ -f $LOCKFILE ]; then
-  LOCKPID=`cat $LOCKFILE`
+  LOCKPID=$(cat $LOCKFILE)
   ps "$LOCKPID" > /dev/null
   if [ $? -eq 0 ]
     then
@@ -57,7 +57,7 @@ cd /data/static/build/planet-content || exit 1
 cd branches || exit 1
 for planet in $PLANETS; do
     (
-      cd $planet || exit 1
+      cd "$planet" || exit 1
       python ../../../planet-source/trunk/planet.py config.ini
     )
 done
