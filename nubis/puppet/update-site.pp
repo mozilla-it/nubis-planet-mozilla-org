@@ -5,15 +5,6 @@ file { '/opt/admin-scripts':
   mode   => '0755',
 }
 
-file { '/opt/admin-scripts/planet.sh':
-  ensure  => file,
-  owner   => root,
-  group   => root,
-  mode    => '0755',
-  source  => 'puppet:///nubis/files/planet.sh',
-  require => File['/opt/admin-scripts'],
-}
-
 file {'/opt/admin-scripts/symlink_add.sh':
   ensure  => file,
   owner   => root,
@@ -77,17 +68,4 @@ file { '/data/static/build/planet-source':
   group   => root,
   mode    => '0755',
   require => File['/data/static/build'],
-}
-
-file { "/etc/nubis.d/${project_name}":
-  ensure  => file,
-  owner   => root,
-  group   => root,
-  mode    => '0755',
-  content => "#!/bin/bash -l
-# Runs once on instance boot, after all infra services are up and running
-
-# Start serving it
-service ${::apache::params::service_name} start
-"
 }

@@ -3,37 +3,19 @@
 # https://github.com/puppetlabs/puppetlabs-apache
 #
 
-include nubis_discovery
-
-nubis::discovery::service {
-  $project_name:
-    tags     => [ 'apache' ],
-    port     => 80,
-    check    => '/usr/bin/curl -If http://localhost:80',
-    interval => '30s',
-}
+# Define how Apache should be installed and configured
 
 $timeout = 120
 
-class {
-    'apache':
-        mpm_module          => 'event',
-        keepalive           => 'On',
-        timeout             => $timeout,
-        keepalive_timeout   => $timeout,
-        default_mods        => true,
-        default_vhost       => false,
-        default_confd_files => false,
-        service_enable      => false,
-        service_ensure      => false;
-    'apache::mod::status':;
-    'apache::mod::remoteip':
-        proxy_ips => [ '127.0.0.1', '10.0.0.0/8' ];
-    'apache::mod::expires':
-        expires_default => 'access plus 30 minutes';
+class { 'nubis_apache':
+  timeout                => $timeout,
+  update_script_source   => 'puppet:///nubis/files/planet.sh',
+  update_script_interval => {
+    minute => "*/5",
+  },
 }
 
-apache::vhost { 'planet':
+apache::vhost { $project_name:
     port               => 80,
     default_vhost      => true,
     docroot            => '/var/www/html',
