@@ -11,7 +11,7 @@ class { 'nubis_apache':
   timeout                => $timeout,
   update_script_source   => 'puppet:///nubis/files/planet.sh',
   update_script_interval => {
-    minute => "*/5",
+    minute => [ fqdn_rand(30), ( fqdn_rand(30) + 30 ) % 60],
   },
 }
 
