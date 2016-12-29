@@ -9,6 +9,8 @@ module "worker" {
   elb          = "${module.load_balancer.name}"
   ssh_key_file = "${var.ssh_key_file}"
   ssh_key_name = "${var.ssh_key_name}"
+  wait_for_capacity_timeout = 30m
+  health_check_grace_period = 1200
   min_instances = 2
 }
 
