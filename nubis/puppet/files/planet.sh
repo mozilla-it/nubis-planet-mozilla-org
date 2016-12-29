@@ -65,7 +65,7 @@ cd /data/static/build/planet-content/branches || exit 1
 for planet in $PLANETS; do
     (
       cd "$planet" || exit 1
-      python ../../../planet-source/trunk/planet.py config.ini 2>&1 | sed -e"s/^/[$planet] /g"
+      python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee /var/log/planet-$planet.log | sed -e"s/^/[$planet] /g"
     ) &
 done
 
