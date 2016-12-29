@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 LOCKFILE=/tmp/locks/planet.lock
 PLANETS="planet education mozillaonline bugzilla firefox firefoxmobile webmaker
@@ -27,6 +27,11 @@ fi
 echo $$ > $LOCKFILE
 
 cd /data/static/build || exit 1
+
+#XXX: Debug
+
+echo "Running with HTTP proxy: $HTTP_PROXY"
+echo "Running with HTTPS proxy: $HTTPS_PROXY"
 
 # "git clone" may fail if the directory is not empty
 # Removing symlinks that may exist
