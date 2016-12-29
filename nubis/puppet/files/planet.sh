@@ -2,7 +2,8 @@
 
 # Protect against parallel execution, only one copy can run at a time, we exit otherwise
 # shellcheck disable=SC2015
-[ "${FLOCKER}" != "$0" ] && exec env FLOCKER="$0" flock -E0 -en "$0" "$0" "$@" && exit 0
+exec 200<$0
+flock -n 200 || exit 0
 
 PLANETS="\
 planet \
