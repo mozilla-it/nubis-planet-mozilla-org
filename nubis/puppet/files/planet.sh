@@ -6,30 +6,29 @@ exec 200<$0
 flock -n 200 || exit 0
 
 PLANETS="\
-planet \
-education \
-mozillaonline \
+ateam \
 bugzilla \
+education \
 firefox \
 firefoxmobile \
-webmaker
-firefox-ux \
-webmademovies \
-planet-de \
-universalsubtitles \
-interns \
-research
-mozillaopennews \
-l10n \
-ateam \
-projects \
-thunderbird \
 firefox-os \
-releng \
-participation \
-taskcluster \
+firefox-ux \
+interns \
+l10n \
+mozillaonline \
+mozillaopennews \
 mozreview \
+participation \
 planet \
+planet-de \
+projects \
+releng \
+research
+taskcluster \
+thunderbird \
+universalsubtitles \
+webmademovies \
+webmaker \
 "
 
 cd /data/static/build || exit 1
