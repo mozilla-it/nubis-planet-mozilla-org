@@ -1,30 +1,13 @@
 #!/bin/bash -l
 
-LOCKFILE=/tmp/locks/planet.lock
+# Protect against parallel execution, only one copy can run at a time, we exit otherwise
+# shellcheck disable=SC2015
+[ "${FLOCKER}" != "$0" ] && exec env FLOCKER="$0" flock -E0 -en "$0" "$0" "$@" && exit 0
+
 PLANETS="planet education mozillaonline bugzilla firefox firefoxmobile webmaker
 firefox-ux webmademovies planet-de universalsubtitles interns research
 mozillaopennews l10n ateam projects thunderbird firefox-os releng participation
 taskcluster mozreview planet"
-
-if [ ! -d /tmp/locks ]
-then
-  mkdir /tmp/locks
-fi
-
-if [ -f $LOCKFILE ]; then
-  LOCKPID=$(cat $LOCKFILE)
-  ps "$LOCKPID" > /dev/null
-  if [ $? -eq 0 ]
-    then
-      exit 0
-    else
-      echo "stale lockfile found removing"
-      rm $LOCKFILE
-  fi
-fi
-
-# Add PID to lockfile
-echo $$ > $LOCKFILE
 
 cd /data/static/build || exit 1
 
@@ -69,4 +52,4 @@ done
 
 cp -rf /data/static/src/planet.mozilla.org/* /var/www/html
 
-rm -f $LOCKFILE
+exit 0
