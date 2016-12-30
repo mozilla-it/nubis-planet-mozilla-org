@@ -2,7 +2,7 @@
 
 # Protect against parallel execution, only one copy can run at a time, we exit otherwise
 # shellcheck disable=SC2015
-exec 200<$0
+exec 200<"$0"
 flock -n 200 || exit 0
 
 PLANETS="\
@@ -64,7 +64,7 @@ cd /data/static/build/planet-content/branches || exit 1
 for planet in $PLANETS; do
     (
       cd "$planet" || exit 1
-      python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee /var/log/planet-$planet.log | sed -e"s/^/[$planet] /g"
+      python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee "/var/log/planet-$planet.log" | sed -e"s/^/[$planet] /g"
     ) &
 done
 
