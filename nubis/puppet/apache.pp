@@ -5,10 +5,7 @@
 
 # Define how Apache should be installed and configured
 
-$timeout = 120
-
 class { 'nubis_apache':
-  timeout                => $timeout,
   update_script_source   => 'puppet:///nubis/files/planet.sh',
   update_script_interval => {
     minute => [ fqdn_rand(30), ( fqdn_rand(30) + 30 ) % 60],
@@ -32,8 +29,6 @@ apache::vhost { $project_name:
     custom_fragment    => "
 # Clustered without coordination
 FileETag None
-# Keep ELBs happily idling for a long while
-RequestReadTimeout header=${timeout} body=${timeout}
 ",
     headers            => [
       "set X-Nubis-Version ${project_version}",
