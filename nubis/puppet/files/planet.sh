@@ -31,16 +31,14 @@ ln -s /data/static/build/planet-source/trunk/ /data/static/build/planet-content/
 # Restore symlinks
 /opt/admin-scripts/symlink_add.sh
 
-# Generate content
-cd /data/static/build/planet-content/branches || exit 1
-
 # Run one job more than cores we have
 JOBS=$(( 1 + $(/usr/local/bin/parallel --number-of-cores) * 2 ))
 
 # Run planet in parallel
-ls -1 | /usr/local/bin/parallel -j "$JOBS" "cd /data/static/build/planet-content/branches/{} && python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee /var/log/planet-{}.log | sed -e's/^/[{%}][{}] /g'"
+find /data/static/build/planet-content/branches -maxdepth 1 -mindepth 1 -type d | \
+  /usr/local/bin/parallel -j "$JOBS" \
+  "cd {} && python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee /var/log/planet-{/}.log | sed -e's/^/[{%}][{/}] /g'"
 
-#XXX: Atomic Rsync here?
-cp -rf /data/static/src/planet.mozilla.org/* /var/www/html
+/usr/local/bin/atomic-rsync -a /data/static/src/planet.mozilla.org/ /var/www/html/
 
 exit 0
