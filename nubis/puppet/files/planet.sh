@@ -23,7 +23,7 @@ planet \
 planet-de \
 projects \
 releng \
-research
+research \
 taskcluster \
 thunderbird \
 universalsubtitles \
