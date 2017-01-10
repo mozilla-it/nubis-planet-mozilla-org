@@ -60,16 +60,11 @@ ln -s /data/static/build/planet-source/trunk/ /data/static/build/planet-content/
 # Generate content
 cd /data/static/build/planet-content/branches || exit 1
 
-# XXX: GNU parallel a possible candidate here
-for planet in $PLANETS; do
-    (
-      cd "$planet" || exit 1
-      python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee "/var/log/planet-$planet.log" | sed -e"s/^/[$planet] /g"
-    ) &
-done
+# Run one job more than cores we have
+JOBS=$(( 1 + $(/usr/local/bin/parallel --number-of-cores) * 2 ))
 
-# Wait for all planet jobs to complete...
-wait
+# Run planet in parallel
+echo "$PLANETS" | /usr/local/bin/parallel --trim rl -j "$JOBS" -d " " "cd /data/static/build/planet-content/branches/{} && python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee /var/log/planet-{}.log | sed -e's/^/[{%}][{}] /g'"
 
 #XXX: Atomic Rsync here?
 cp -rf /data/static/src/planet.mozilla.org/* /var/www/html
