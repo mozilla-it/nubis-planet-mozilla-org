@@ -8,7 +8,7 @@
 class { 'nubis_apache':
   update_script_source   => 'puppet:///nubis/files/planet.sh',
   require                => [
-    File['/usr/local/bin/parallel'],
+    Exec['accept-gnu-parallel-license'],
   ],
   update_script_interval => {
     minute => [ fqdn_rand(30), ( fqdn_rand(30) + 30 ) % 60],
