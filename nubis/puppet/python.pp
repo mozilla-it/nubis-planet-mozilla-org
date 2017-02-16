@@ -1,19 +1,20 @@
-# Ensure that Python 2.7 is installed
+# Ensure that required packages are available
 
 case $::osfamily {
   'RedHat': {
-    $python_package            = 'python2.7.5-39.el7_2'
+    package {
+      'python':
+        ensure => '2.7.5-48.el7',
+        name   => 'python'
+    }
   }
   'Debian', 'Ubuntu': {
-    $python_package            = 'python2.7'
+    package {
+      'python':
+        name   => 'python2.7'
+    }
   }
   default: {
-    fail("Unknown Python package for OS ${::osfamily}")
+    fail("Unknown package version for OS ${::osfamily}")
   }
-}
-
-package {
-  'python':
-    ensure => installed,
-    name   => $python_package,
 }

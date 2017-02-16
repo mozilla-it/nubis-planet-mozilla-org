@@ -1,5 +1,5 @@
 variable "account" {
-  default = "planet"
+  default = ""
 }
 
 variable "region" {
@@ -14,9 +14,7 @@ variable "service_name" {
   default = "planet"
 }
 
-variable "ami" {
-  default ="ami-53ff5633"
-}
+variable "ami" {}
 
 variable "ssh_key_file" {
   default = ""

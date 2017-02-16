@@ -5,44 +5,67 @@ file { '/opt/admin-scripts':
   mode   => '0755',
 }
 
-file { ['/opt/planet', '/opt/planet/build']:
+file {'/opt/admin-scripts/symlink_add.sh':
+  ensure  => file,
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  source  => 'puppet:///nubis/files/symlink_add.sh',
+  require => File['/opt/admin-scripts'],
+}
+
+file {'/opt/admin-scripts/symlink_remove.sh':
+  ensure  => file,
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  source  => 'puppet:///nubis/files/symlink_remove.sh',
+  require => File['/opt/admin-scripts'],
+}
+
+file { '/data':
+  ensure => 'directory',
+  owner  => root,
+  group  => root,
+  mode   => '0755',
+}
+
+file { '/data/static':
   ensure  => 'directory',
   owner   => root,
   group   => root,
   mode    => '0755',
-  require => File['/opt/admin-scripts'],
+  require => File['/data'],
 }
 
-file { '/opt/admin-scripts/update-site.sh':
-  ensure  => file,
+file { '/data/static/src':
+  ensure  => 'directory',
   owner   => root,
   group   => root,
   mode    => '0755',
-  source  => 'puppet:///nubis/files/update-site.sh',
-  require => File['/opt/admin-scripts'],
+  require => File['/data/static'],
 }
 
-file { '/opt/admin-scripts/planet.sh':
-  ensure  => file,
+file { '/data/static/build':
+  ensure  => 'directory',
   owner   => root,
   group   => root,
   mode    => '0755',
-  source  => 'puppet:///nubis/files/planet.sh',
-  require => File['/opt/admin-scripts'],
+  require => File['/data/static'],
 }
 
-file { "/etc/nubis.d/${project_name}":
-  ensure  => file,
+file { '/data/static/build/planet-content':
+  ensure  => 'directory',
   owner   => root,
   group   => root,
   mode    => '0755',
-  content => "#!/bin/bash -l
-# Runs once on instance boot, after all infra services are up and running
+  require => File['/data/static/build'],
+}
 
-# Pull latest version
-/opt/admin-scripts/update-site.sh
-
-# Start serving it
-service ${::apache::params::service_name} start
-"
+file { '/data/static/build/planet-source':
+  ensure  => 'directory',
+  owner   => root,
+  group   => root,
+  mode    => '0755',
+  require => File['/data/static/build'],
 }

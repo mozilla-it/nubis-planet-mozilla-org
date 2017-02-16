@@ -1,46 +1,41 @@
-#!/bin/bash
+#!/bin/bash -l
 
-LOCKFILE=/tmp/locks/planet.lock
-PLANETS="planet education mozillaonline bugzilla firefox firefoxmobile webmaker firefox-ux webmademovies planet-de universalsubtitles interns research mozillaopennews l10n ateam projects thunderbird firefox-os releng participation taskcluster mozreview"
+# Protect against parallel execution, only one copy can run at a time, we exit otherwise
+# shellcheck disable=SC2015
+exec 200<"$0"
+flock -n 200 || exit 0
 
-# Ensure that Python 2.7 is available (only tested with 2.6 and 2.7)
-python --version 2>&1 | grep "2\.7" 2>&1>/dev/null
-PYTHON_VER_CHECK=$?
+cd /data/static/build || exit 1
 
-if [ $PYTHON_VER_CHECK -ne 0 ]; then
-  # Python is not available
-  exit 1
+# "git clone" may fail if the directory is not empty
+# Removing symlinks that may exist
+/opt/admin-scripts/symlink_remove.sh
+
+if [ ! -d "/data/static/build/planet-source/.git" ]; then
+  git clone https://github.com/mozilla/planet-source.git planet-source
 fi
 
-if [ ! -d /tmp/locks ]
-then
-  mkdir /tmp/locks
+if [ ! -d "/data/static/build/planet-content/.git" ]; then
+  git clone https://github.com/mozilla/planet-content.git planet-content
 fi
-
-if [ -f $LOCKFILE ]; then
-  LOCKPID=`cat $LOCKFILE`
-  ps $LOCKPID > /dev/null
-  if [ $? -eq 0 ]
-    then
-      exit 0
-    else
-      echo "stale lockfile found removing"
-      rm $LOCKFILE
-  fi
-fi
-
-# Add PID to lockfile
-echo $$ > $LOCKFILE
 
 # Update repositories
-cd /opt/planet/build/planet-source && git pull
-cd /opt/planet/build/planet-content && git pull
-cd /opt/planet/build/planet-content/branches
+cd /data/static/build/planet-source && git pull
+rm -f /data/static/build/planet-content/trunk
+cd /data/static/build/planet-content && git pull
+cd /data/static/build || exit 1
 
-for planet in $PLANETS; do
-  cd $planet
-  /usr/bin/python ../../../planet-source/trunk/planet.py config.ini
-  cd ..
-done
+# Add symlink to satisfy planet.py expectations
+ln -s /data/static/build/planet-source/trunk/ /data/static/build/planet-content/trunk
 
-rm -f $LOCKFILE
+# Restore symlinks
+/opt/admin-scripts/symlink_add.sh
+
+# Run planet in parallel
+find /data/static/build/planet-content/branches -maxdepth 1 -mindepth 1 -type d | \
+  /usr/local/bin/parallel --shuf -j 200% \
+  "cd {} && python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee /var/log/planet-{/}.log | sed -e's/^/[{%}][{/}] /g'"
+
+/usr/local/bin/atomic-rsync -a /data/static/src/planet.mozilla.org/ /var/www/html/
+
+exit 0

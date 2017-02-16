@@ -3,16 +3,15 @@
 case $::osfamily {
   'RedHat': {
     package {
-      'git':
-        ensure => '2.7.3-1.46.amzn1',
-        name   => 'git'
+      'xsltproc':
+        ensure => '1.1.28-5.el7',
+        name   => 'libxslt-devel'
     }
   }
   'Debian', 'Ubuntu': {
     package {
-      'git':
-        ensure => '1:1.9.1-1ubuntu0.3',
-        name   => 'git'
+      'xsltproc':
+        name   => 'xsltproc'
     }
   }
   default: {
