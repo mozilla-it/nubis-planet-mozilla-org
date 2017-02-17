@@ -36,6 +36,6 @@ find /data/static/build/planet-content/branches -maxdepth 1 -mindepth 1 -type d 
   /usr/local/bin/parallel --shuf -j 250% \
   "cd {} && python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee /var/log/planet-{/}.log | sed -e's/^/[{%}][{/}] /g'"
 
-/usr/local/bin/atomic-rsync -a /data/static/genericrhel6/planet.mozilla.org/ /var/www/html/
+/usr/local/bin/atomic-rsync -a /data/genericrhel6/src/planet.mozilla.org/ /var/www/html/
 
 exit 0
