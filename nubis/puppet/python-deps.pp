@@ -15,8 +15,9 @@ $packages = [
 ]
 
 package {
-  $packages: ensure => 'installed',
-  require           => Exec['apt-get-update'],
+  $packages:
+    ensure  => 'installed',
+    require => Exec['apt-get-update'],
 }
 
 # Pip dependencies
