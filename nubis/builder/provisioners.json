@@ -3,6 +3,14 @@
   {
     "type": "shell",
     "inline": [
+      "sudo /usr/bin/apt-get update",
+      "sudo /usr/bin/apt-get -y upgrade"
+    ],
+    "order": "1"
+  },
+  {
+    "type": "shell",
+    "inline": [
       "sudo /usr/local/bin/nubis-update-site"
     ],
     "order": "99"
