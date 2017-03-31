@@ -8,7 +8,7 @@ module "worker" {
   ami                       = "${var.ami}"
   elb                       = "${module.load_balancer.name}"
   nubis_sudo_groups         = "team_webops"
-  wait_for_capacity_timeout = "30m"
+  wait_for_capacity_timeout = "60m"
   health_check_grace_period = 1200
   min_instances             = 2
 }
