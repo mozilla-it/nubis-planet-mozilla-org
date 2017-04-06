@@ -7,10 +7,10 @@ module "worker" {
   purpose                   = "webserver"
   ami                       = "${var.ami}"
   elb                       = "${module.load_balancer.name}"
-  nubis_sudo_groups         = "team_webops"
   wait_for_capacity_timeout = "60m"
   health_check_grace_period = 1200
   min_instances             = 2
+  nubis_sudo_groups         = "team_webops,nubis_global_admins"
 }
 
 module "load_balancer" {
