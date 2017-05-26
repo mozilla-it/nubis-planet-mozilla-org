@@ -15,3 +15,7 @@ variable "service_name" {
 }
 
 variable "ami" {}
+
+variable "root_storage_size" {
+  default = "16"
+}
