@@ -22,3 +22,7 @@ exec { 'pip-idna':
 exec { 'pip-pyopenssl':
   command => '/usr/bin/pip install pyopenssl',
 }
+
+exec { 'pip-feedparser':
+  command => '/usr/bin/pip install feedparser',
+}
