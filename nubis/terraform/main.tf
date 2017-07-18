@@ -7,6 +7,7 @@ module "worker" {
   purpose                   = "webserver"
   ami                       = "${var.ami}"
   elb                       = "${module.load_balancer.name}"
+  instance_type             = "${var.instance_type}"
   wait_for_capacity_timeout = "60m"
   health_check_grace_period = 1200
   min_instances             = 2

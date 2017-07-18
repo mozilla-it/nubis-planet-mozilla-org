@@ -19,3 +19,7 @@ variable "ami" {}
 variable "root_storage_size" {
   default = "16"
 }
+
+variable "instance_type" {
+  default = "t2.medium"
+}
