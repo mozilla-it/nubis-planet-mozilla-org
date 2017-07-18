@@ -32,8 +32,8 @@ ln -s /data/static/build/planet-source/trunk/ /data/static/build/planet-content/
 /opt/admin-scripts/symlink_add.sh
 
 # Run planet in parallel (Consider possibly timing-out jobs)
-find /data/static/build/planet-content/branches -maxdepth 1 -mindepth 1 -type d | \
-  /usr/local/bin/parallel --shuf -j 250% \
+time find /data/static/build/planet-content/branches -maxdepth 1 -mindepth 1 -type d | \
+  /usr/local/bin/parallel --verbose --timeout 300 --line-buffer --shuf -j 250% \
   "cd {} && python ../../../planet-source/trunk/planet.py config.ini 2>&1 | tee /var/log/planet-{/}.log | sed -e's/^/[{%}][{/}] /g'"
 
 /usr/local/bin/atomic-rsync -a /data/genericrhel6/src/planet.mozilla.org/ /var/www/html/
