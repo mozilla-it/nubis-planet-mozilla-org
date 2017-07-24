@@ -39,7 +39,7 @@ python::pip { 'requests':
 }
 
 python::pip { 'urllib3':
-  ensure => '1.21.1',
+  ensure => '1.22',
 }
 
 python::pip { 'httplib2':
