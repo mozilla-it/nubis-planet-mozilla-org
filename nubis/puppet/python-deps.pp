@@ -33,3 +33,15 @@ python::pip { 'lockfile':
 python::pip { 'CacheControl':
   ensure => '0.12.3',
 }
+
+python::pip { 'requests':
+  ensure => '2.18.1',
+}
+
+python::pip { 'urllib3':
+  ensure => '1.21.1',
+}
+
+python::pip { 'httplib2':
+  ensure => '0.10.3',
+}
