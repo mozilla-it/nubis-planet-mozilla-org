@@ -3,10 +3,8 @@
 # Apt dependencies
 $packages = [
   'libssl-dev',
-  'python-pip',
   'build-essential',
   'libffi-dev',
-  'python-dev'
 ]
 
 package {
@@ -15,14 +13,23 @@ package {
 }
 
 # Pip dependencies
-exec { 'pip-idna':
-  command => '/usr/bin/pip install idna',
+
+python::pip { 'idna':
+  ensure => '2.5',
 }
 
-exec { 'pip-pyopenssl':
-  command => '/usr/bin/pip install pyopenssl',
+python::pip { 'pyopenssl':
+  ensure => '17.2.0',
 }
 
-exec { 'pip-feedparser':
-  command => '/usr/bin/pip install feedparser',
+python::pip { 'feedparser':
+  ensure => '5.2.1',
+}
+
+python::pip { 'lockfile':
+  ensure => '0.12.2',
+}
+
+python::pip { 'CacheControl':
+  ensure => '0.12.3',
 }
